@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using picoJournal.WebApi.Repositories;
+using picoJournal.WebApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace picoJournal.WebApi
 {
@@ -29,6 +32,14 @@ namespace picoJournal.WebApi
         {
             // Add framework services.
             services.AddMvc();
+
+            // Configure database access.
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=picoJournal;Trusted_Connection=True;";
+            services.AddDbContext<PicoJournalContext>(options => options.UseSqlServer(connection));
+
+            // Add repositories.
+            services.AddTransient<JournalEntryRepository, JournalEntryRepository>();
+            services.AddTransient<QuestionRepository, QuestionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
