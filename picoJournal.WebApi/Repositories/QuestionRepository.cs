@@ -41,8 +41,11 @@ namespace picoJournal.WebApi.Repositories
 
         public void Delete(Question question)
         {
-            _context.Set<Question>().Remove(question);
-            _context.SaveChanges();
+            if (question != null)
+            {
+                _context.Set<Question>().Remove(question);
+                _context.SaveChanges();
+            }
         }
 
         public void Delete(int id)

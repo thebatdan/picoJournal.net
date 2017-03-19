@@ -54,8 +54,11 @@ namespace picoJournal.WebApi.Repositories
 
         public void Delete(JournalEntry journalEntry)
         {
-            _context.Set<JournalEntry>().Remove(journalEntry);
-            _context.SaveChanges();
+            if (journalEntry != null)
+            {
+                _context.Set<JournalEntry>().Remove(journalEntry);
+                _context.SaveChanges();
+            }
         }
 
         public void Delete(int id)
